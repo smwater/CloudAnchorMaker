@@ -10,10 +10,35 @@ public class CreateButton : MonoBehaviour
     public GameObject Panel;
 
     private ARAnchorManager _arAnchorManager;
+    private bool _cloudAnchorHosting = false;
 
     private void Awake()
     {
         _arAnchorManager = GameObject.Find("Manager").GetComponent<ARAnchorManager>();
+    }
+
+    private void Update()
+    {
+        if (!_cloudAnchorHosting)
+        {
+            return;
+        }
+
+        if (Marker.ARCloudAnchor.cloudAnchorState == CloudAnchorState.TaskInProgress)
+        {
+            return;
+        }
+        if (Marker.ARCloudAnchor.cloudAnchorState == CloudAnchorState.Success)
+        {
+            Debug.Log("클라우드 성공적으로 호스팅 했다!");
+            Panel.SetActive(false);
+            MarkerCount.Count--;
+            _cloudAnchorHosting = false;
+        }
+        else
+        {
+            Debug.Log($"{Marker.ARCloudAnchor.cloudAnchorState}");
+        }
     }
 
     public void Click()
@@ -31,18 +56,6 @@ public class CreateButton : MonoBehaviour
 
         Marker.ARCloudAnchor = ARAnchorManagerExtensions.HostCloudAnchor(_arAnchorManager, Marker.ARAnchor);
 
-        if (Marker.ARCloudAnchor)
-        {
-            if (Marker.ARCloudAnchor.cloudAnchorState == CloudAnchorState.Success)
-            {
-                Debug.Log("클라우드 성공적으로 호스팅 했다!");
-                Panel.SetActive(false);
-                MarkerCount.Count--;
-            }
-            else
-            {
-                Debug.Log("클라우드 앵커 왠진 모르겠는데 호스팅 안됨");
-            }
-        }
+        _cloudAnchorHosting = true;
     }
 }
