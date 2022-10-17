@@ -20,7 +20,7 @@ public class Marker : MonoBehaviour
     private void Awake()
     {
         ARAnchor = gameObject.AddComponent<ARAnchor>();
-        _arAnchorManager = transform.Find("Manager").GetComponent<ARAnchorManager>();
+        _arAnchorManager = GameObject.Find("Manager").GetComponent<ARAnchorManager>();
     }
 
     public void Click()
@@ -34,11 +34,6 @@ public class Marker : MonoBehaviour
         if (arHit.trackable is ARPlane arPlane)
         {
             ARAnchor = _arAnchorManager.AttachAnchor(arPlane, arHit.pose);
-            Debug.Log(ARAnchor);
-        }
-        else
-        {
-            Debug.Log("·ÎÄÃ ¾ÞÄ¿ ¸ø ¸¸µê");
         }
     }
 }

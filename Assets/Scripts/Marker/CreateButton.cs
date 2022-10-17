@@ -13,8 +13,7 @@ public class CreateButton : MonoBehaviour
 
     private void Awake()
     {
-        _arAnchorManager = transform.Find("Manager").GetComponent<ARAnchorManager>();
-        if (_arAnchorManager == null) Debug.Log("앵커매니저 없음");
+        _arAnchorManager = GameObject.Find("Manager").GetComponent<ARAnchorManager>();
     }
 
     public void Click()
