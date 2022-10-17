@@ -8,14 +8,19 @@ using UnityEngine.XR.ARSubsystems;
 public class PlayerInput : MonoBehaviour
 {
     public GameObject MarkerPrefab;
+    [HideInInspector] public GameObject[] Markers;
 
     private Camera _camera;
     private ARRaycastManager _arRaycastManager;
+    
+    private int _markerMaxCount = 40;
+    private int _markerNowCount = 0;
 
     private void Awake()
     {
         _camera = GetComponent<Camera>();
         _arRaycastManager = GetComponent<ARRaycastManager>();
+        Markers = new GameObject[_markerMaxCount];
     }
 
     // Update is called once per frame
@@ -61,14 +66,19 @@ public class PlayerInput : MonoBehaviour
             {
                 arHit = arHits[0];
 
-                GameObject marker = Instantiate(MarkerPrefab, arHit.pose.position + new Vector3(0f, 0.2f), arHit.pose.rotation);
+                Markers[_markerNowCount] = Instantiate(MarkerPrefab, arHit.pose.position + new Vector3(0f, 0.2f), arHit.pose.rotation);
+                Markers[_markerNowCount].GetComponent<Marker>().CreateAnchor(arHit);
 
                 MarkerCount.Count++;
-
-                marker.GetComponent<Marker>().CreateAnchor(arHit);
+                _markerNowCount++;
 
                 return;
             }
         }
+    }
+
+    public void DecreaseMarkerNowCount()
+    {
+        _markerNowCount--;
     }
 }

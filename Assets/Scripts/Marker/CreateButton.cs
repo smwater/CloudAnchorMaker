@@ -31,9 +31,11 @@ public class CreateButton : MonoBehaviour
         if (Marker.ARCloudAnchor.cloudAnchorState == CloudAnchorState.Success)
         {
             Debug.Log("클라우드 성공적으로 호스팅 했다!");
+            Marker.CloudAnchorID = Marker.ARCloudAnchor.cloudAnchorId;
+            _cloudAnchorHosting = false;
+
             Panel.SetActive(false);
             MarkerCount.Count--;
-            _cloudAnchorHosting = false;
         }
         else
         {
