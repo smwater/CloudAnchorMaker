@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 
 public class PlayerInput : MonoBehaviour
 {
-    private Camera _camera;
     public GameObject MarkerPrefab;
+
+    private Camera _camera;
+    private ARRaycastManager _arRaycastManager;
 
     private void Awake()
     {
         _camera = GetComponent<Camera>();
+        _arRaycastManager = GetComponent<ARRaycastManager>();
     }
 
     // Update is called once per frame
@@ -28,28 +33,41 @@ public class PlayerInput : MonoBehaviour
         if (touch.phase == TouchPhase.Began)
         {
             Ray ray;
-            RaycastHit hit;
-
             ray = _camera.ScreenPointToRay(touch.position);
 
-            if (Physics.Raycast(ray, out hit))
+            RaycastHit hit;
+            int layerMask = 1 << LayerMask.NameToLayer("Marker");
+            if (Physics.Raycast(ray, out hit, 10f, layerMask))
             {
                 if (EventSystem.current.IsPointerOverGameObject() == true)
                 {
                     return;
                 }
 
-                Pose pose = new Pose(hit.transform.position, hit.transform.rotation);
+                hit.transform.GetComponent<Marker>().Click();
 
-                if (hit.transform.CompareTag("Marker"))
-                {
-                    hit.transform.GetComponent<Marker>().Click();
-                }
+                return;
+            }
 
-                if (hit.transform.CompareTag("Plane"))
-                {
-                    Instantiate(MarkerPrefab, pose.position + new Vector3(0f, 0.2f), pose.rotation);
-                }
+            if (MarkerCount.Count >= 1)
+            {
+                return;
+            }
+
+            List<ARRaycastHit> arHits = new List<ARRaycastHit>();
+            ARRaycastHit arHit;
+
+            if (_arRaycastManager.Raycast(ray, arHits, TrackableType.PlaneWithinPolygon | TrackableType.FeaturePoint))
+            {
+                arHit = arHits[0];
+
+                GameObject marker = Instantiate(MarkerPrefab, arHit.pose.position + new Vector3(0f, 0.2f), arHit.pose.rotation);
+
+                MarkerCount.Count++;
+
+                marker.GetComponent<Marker>().CreateAnchor(arHit);
+
+                return;
             }
         }
     }

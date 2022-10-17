@@ -334,8 +334,9 @@ GameObject:
   - component: {fileID: 1316712389}
   - component: {fileID: 1316712388}
   - component: {fileID: 1316712387}
+  - component: {fileID: 1316712390}
   m_Layer: 0
-  m_Name: ARAnchorManager
+  m_Name: Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -381,6 +382,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1316712390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316712386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38805e86d3d1fc448b5fa0be9184e42b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1763006889
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +412,7 @@ GameObject:
   - component: {fileID: 1763006896}
   - component: {fileID: 1763006898}
   - component: {fileID: 1763006900}
+  - component: {fileID: 1763006899}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: MainCamera
@@ -554,6 +568,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MarkerPrefab: {fileID: 4823663640164618207, guid: 0c00ef0384f226248aa17be30f34b36f, type: 3}
+--- !u!114 &1763006899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763006889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RaycastPrefab: {fileID: 0}
 --- !u!114 &1763006900
 MonoBehaviour:
   m_ObjectHideFlags: 0

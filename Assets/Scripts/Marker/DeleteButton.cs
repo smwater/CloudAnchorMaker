@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class DeleteButton : MonoBehaviour
 {
-    public GameObject Marker;
+    public Marker Marker;
 
     public void Click()
     {
-        Destroy(Marker);
+        if (Marker.ARCloudAnchor == null)
+        {
+            Debug.Log("클라우드 앵커 없는디?");
+            return;
+        }
+
+        Marker.ARCloudAnchor.OnDestroy();
+
+        MarkerCount.Count--;
+
+        Destroy(Marker.gameObject);
     }
 }

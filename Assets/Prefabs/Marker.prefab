@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 80890188}
   - component: {fileID: 80890190}
   - component: {fileID: 80890189}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 118744354}
   - component: {fileID: 118744353}
   - component: {fileID: 118744352}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 417483986}
   - component: {fileID: 417483988}
   - component: {fileID: 417483987}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 1055342389}
   - component: {fileID: 1055342388}
   - component: {fileID: 2970085151608103031}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Delete Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b37676fc509c7429f4967f8a9b01f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Marker: {fileID: 4823663640164618207}
+  Marker: {fileID: 8995900056342352966}
 --- !u!1 &1303308743
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 1303308747}
   - component: {fileID: 1303308746}
   - component: {fileID: 1303308745}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -654,7 +654,7 @@ GameObject:
   - component: {fileID: 1698402992}
   - component: {fileID: 1698402991}
   - component: {fileID: 6334460030375259382}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Create Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -807,8 +807,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb230dd7ee6cbc04dba90ef56baecde4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Marker: {fileID: 8995900056342352966}
   Panel: {fileID: 118744350}
-  ARAnchorManager: {fileID: 0}
 --- !u!1 &4823663640164618207
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,9 +822,9 @@ GameObject:
   - component: {fileID: 4823663640164618205}
   - component: {fileID: 4823663640164618204}
   - component: {fileID: 8995900056342352966}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Marker
-  m_TagString: Marker
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -920,3 +920,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Panel: {fileID: 118744350}
+  ARCloudAnchor: {fileID: 0}

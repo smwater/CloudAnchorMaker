@@ -1,11 +1,21 @@
+using Google.XR.ARCoreExtensions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 
 public class CreateButton : MonoBehaviour
 {
-    private Marker Marker;
+    public Marker Marker;
     public GameObject Panel;
+
+    private ARAnchorManager _arAnchorManager;
+
+    private void Awake()
+    {
+        _arAnchorManager = transform.Find("Manager").GetComponent<ARAnchorManager>();
+        if (_arAnchorManager == null) Debug.Log("앵커매니저 없음");
+    }
 
     public void Click()
     {
@@ -14,17 +24,26 @@ public class CreateButton : MonoBehaviour
             return;
         }
 
-        //_arCloudAnchor = ARAnchorManagerExtensions.HostCloudAnchor(ARAnchorManager, _arAnchor);
+        if (Marker.ARCloudAnchor != null)
+        {
+            Debug.Log("클라우드 앵커 이미 있는데?");
+            return;
+        }
 
-        //if (_arCloudAnchor)
-        //{
-        //    if (_arCloudAnchor.cloudAnchorState == CloudAnchorState.Success)
-        //    {
-        //        Instantiate(Prefab, _arCloudAnchor.transform);
-        //        _arCloudAnchor = null;
-        //    }
-        //}
+        Marker.ARCloudAnchor = ARAnchorManagerExtensions.HostCloudAnchor(_arAnchorManager, Marker.ARAnchor);
 
-        Panel.SetActive(false);
+        if (Marker.ARCloudAnchor)
+        {
+            if (Marker.ARCloudAnchor.cloudAnchorState == CloudAnchorState.Success)
+            {
+                Debug.Log("클라우드 성공적으로 호스팅 했다!");
+                Panel.SetActive(false);
+                MarkerCount.Count--;
+            }
+            else
+            {
+                Debug.Log("클라우드 앵커 왠진 모르겠는데 호스팅 안됨");
+            }
+        }
     }
 }
