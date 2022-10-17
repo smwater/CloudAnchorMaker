@@ -8,13 +8,7 @@ public class DeleteButton : MonoBehaviour
 
     public void Click()
     {
-        if (Marker.ARCloudAnchor == null)
-        {
-            Debug.Log("클라우드 앵커 없는디?");
-            return;
-        }
-
-        Marker.ARCloudAnchor.OnDestroy();
+        Marker.ARCloudAnchor?.OnDestroy();
 
         MarkerCount.Count--;
 
