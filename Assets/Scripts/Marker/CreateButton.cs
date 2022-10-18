@@ -14,7 +14,7 @@ public class CreateButton : MonoBehaviour
 
     private void Awake()
     {
-        _arAnchorManager = GameObject.Find("Manager").GetComponent<ARAnchorManager>();
+        _arAnchorManager = GameObject.Find("@GameManager").GetComponent<ARAnchorManager>();
     }
 
     private void Update()
@@ -36,6 +36,8 @@ public class CreateButton : MonoBehaviour
 
             Panel.SetActive(false);
             MarkerCount.Count--;
+
+            DataManager.Instance.InitAnchorData(0, "Test", Marker.CloudAnchorID);
         }
         else
         {

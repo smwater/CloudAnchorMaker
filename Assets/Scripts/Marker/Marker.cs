@@ -21,7 +21,7 @@ public class Marker : MonoBehaviour
     private void Awake()
     {
         ARAnchor = gameObject.AddComponent<ARAnchor>();
-        _arAnchorManager = GameObject.Find("Manager").GetComponent<ARAnchorManager>();
+        _arAnchorManager = GameObject.Find("@GameManager").GetComponent<ARAnchorManager>();
     }
 
     public void Click()
