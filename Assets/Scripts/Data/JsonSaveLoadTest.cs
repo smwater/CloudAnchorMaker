@@ -43,7 +43,7 @@ public class Data
     }
 }
 
-public class JsonTest : MonoBehaviour
+public class JsonSaveLoadTest : MonoBehaviour
 {
     public TextMeshProUGUI TestText;
 
