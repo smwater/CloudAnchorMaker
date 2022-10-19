@@ -36,8 +36,6 @@ public class CreateButton : MonoBehaviour
 
             Panel.SetActive(false);
             MarkerCount.Count--;
-
-            DataManager.Instance.InitAnchorData(0, "Test", Marker.CloudAnchorID);
         }
         else
         {

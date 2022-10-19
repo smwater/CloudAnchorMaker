@@ -16,7 +16,6 @@ public class CreateCubeUseIDButton : MonoBehaviour
 
         ARCloudAnchor arCloudAnchor = ARAnchorManagerExtensions.ResolveCloudAnchorId(arAnchorManager, cloudAnchorId);
 
-        DataManager.Instance.SaveAnchorData();
         Instantiate(CubePrefab, arCloudAnchor.gameObject.transform);
     }
 }
