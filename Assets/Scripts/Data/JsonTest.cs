@@ -68,6 +68,13 @@ public class JsonTest : MonoBehaviour
 
     public void Save()
     {
+        if (_saveDatas.Count == 0)
+        {
+            Debug.Log("저장할 내용이 없습니다.");
+            
+            return;
+        }
+
         string toJson = JsonUtility.ToJson(new Serialization<Data>(_saveDatas, _saveDatas.Count));
 
         if (!Directory.Exists(Application.persistentDataPath + "/DataFile"))
@@ -103,6 +110,12 @@ public class JsonTest : MonoBehaviour
             Serialization<Data> serializationData = JsonUtility.FromJson<Serialization<Data>>(fromJson);
             loadDatas = serializationData.ToList();
             int dataCount = serializationData.CheckCount();
+
+            if (dataCount == 0)
+            {
+                Debug.Log("저장된 내용이 없습니다.");
+                return;
+            }
 
             ChangeText(loadDatas[dataCount - 1].Log);
         }
