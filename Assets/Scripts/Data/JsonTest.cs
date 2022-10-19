@@ -9,13 +9,23 @@ using TMPro;
 [Serializable]
 public class Serialization<T>
 {
-    [SerializeField]
-    List<T> data;
-    public List<T> ToList() { return data; }
+    [SerializeField] private List<T> _data;
+    [SerializeField] private int _dataCount;
 
-    public Serialization(List<T> target)
+    public List<T> ToList()
+    { 
+        return _data; 
+    }
+
+    public int CheckCount()
     {
-        this.data = target;
+        return _dataCount;
+    }
+
+    public Serialization(List<T> data, int count)
+    {
+        _data = data;
+        _dataCount = count;
     }
 }
 
@@ -38,7 +48,6 @@ public class JsonTest : MonoBehaviour
     public TextMeshProUGUI TestText;
 
     private int _index = 0;
-    private string _toJson;
 
     private List<Data> _saveDatas = new List<Data>();
 
@@ -47,35 +56,55 @@ public class JsonTest : MonoBehaviour
         Data data = new Data(_index, "Test" + _index.ToString());
 
         _saveDatas.Add(data);
-        ChangeText();
+        ChangeText(_saveDatas[_index].Log);
 
         _index++;
     }
 
-    private void ChangeText()
+    private void ChangeText(string text)
     {
-        TestText.text = _saveDatas[_index].Log;
+        TestText.text = text;
     }
 
     public void Save()
     {
-        _toJson = JsonUtility.ToJson(new Serialization<Data>(_saveDatas));
+        string toJson = JsonUtility.ToJson(new Serialization<Data>(_saveDatas, _saveDatas.Count));
 
         if (!Directory.Exists(Application.persistentDataPath + "/DataFile"))
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/DataFile");
         }
 
-        string filePath = Application.persistentDataPath + "/DataFile/SaveData.Json";
+        string filePath = Path.Combine(Application.persistentDataPath, "DataFile/SaveData.Json");
 
         FileStream fileStream = new FileStream(filePath, FileMode.Create);
-        byte[] byteData = Encoding.UTF8.GetBytes(_toJson);
+        byte[] byteData = Encoding.UTF8.GetBytes(toJson);
         fileStream.Write(byteData, 0, byteData.Length);
         fileStream.Close();
     }
 
     public void Load()
     {
+        List<Data> loadDatas = new List<Data>();
+        string filePath = Path.Combine(Application.persistentDataPath, "DataFile/SaveData.Json");
 
+        if (!File.Exists(filePath))
+        {
+            Debug.Log("저장된 파일을 찾을 수 없습니다.");
+        }
+        else
+        {
+            FileStream fileStream = new FileStream(filePath, FileMode.Open);
+            byte[] byteData = new byte[fileStream.Length];
+            fileStream.Read(byteData, 0, byteData.Length);
+            fileStream.Close();
+            string fromJson = Encoding.UTF8.GetString(byteData);
+
+            Serialization<Data> serializationData = JsonUtility.FromJson<Serialization<Data>>(fromJson);
+            loadDatas = serializationData.ToList();
+            int dataCount = serializationData.CheckCount();
+
+            ChangeText(loadDatas[dataCount - 1].Log);
+        }
     }
 }

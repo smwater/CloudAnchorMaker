@@ -386,7 +386,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 25532146}
         m_TargetAssemblyTypeName: JsonTest, Assembly-CSharp
-        m_MethodName: Save
+        m_MethodName: Load
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
