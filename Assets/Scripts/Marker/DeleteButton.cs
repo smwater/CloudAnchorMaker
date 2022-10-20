@@ -22,7 +22,7 @@ public class DeleteButton : MonoBehaviour
         }
 
         _playerInput.DecreaseMarkerNowCount();
-        _playerInput.ModeSetting(Mode.AnchorPlacement);
+        _playerInput.ModeSetting(Mode.MarkerPlacement);
 
         Destroy(Marker.gameObject);
     }

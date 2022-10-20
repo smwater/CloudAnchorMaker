@@ -42,7 +42,7 @@ public class CreateButton : MonoBehaviour
             _cloudAnchorHosting = false;
 
             Panel.SetActive(false);
-            _playerInput.ModeSetting(Mode.AnchorPlacement);
+            _playerInput.ModeSetting(Mode.MarkerPlacement);
         }
         else
         {
@@ -64,7 +64,6 @@ public class CreateButton : MonoBehaviour
         }
 
         Marker.ARCloudAnchor = ARAnchorManagerExtensions.HostCloudAnchor(_arAnchorManager, Marker.ARAnchor);
-
         _cloudAnchorHosting = true;
     }
 }
