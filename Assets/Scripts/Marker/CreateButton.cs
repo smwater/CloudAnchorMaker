@@ -13,6 +13,7 @@ public class CreateButton : MonoBehaviour
 
     private ARAnchorManager _arAnchorManager;
     private DataManager _dataManager;
+    private PlayerInput _playerInput;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class CreateButton : MonoBehaviour
 
         _arAnchorManager = gameManager.GetComponent<ARAnchorManager>();
         _dataManager = gameManager.GetComponent<DataManager>();
+        _playerInput = GameObject.Find("AR Camera").GetComponent<PlayerInput>();
     }
 
     private void Update()
@@ -40,7 +42,7 @@ public class CreateButton : MonoBehaviour
             _cloudAnchorHosting = false;
 
             Panel.SetActive(false);
-            MarkerCount.Count--;
+            _playerInput.ModeSetting(Mode.AnchorPlacement);
         }
         else
         {

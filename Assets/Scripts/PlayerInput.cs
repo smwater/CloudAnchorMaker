@@ -5,6 +5,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
+public enum Mode
+{
+    AnchorPlacement,
+    AnchorSetting,
+    None
+}
+
 public class PlayerInput : MonoBehaviour
 {
     public GameObject MarkerPrefab;
@@ -12,9 +19,11 @@ public class PlayerInput : MonoBehaviour
 
     private Camera _camera;
     private ARRaycastManager _arRaycastManager;
-    
+
     private int _markerMaxCount = 40;
     private int _markerNowCount = 0;
+
+    private Mode _currentMode = Mode.AnchorPlacement;
 
     private void Awake()
     {
@@ -37,6 +46,11 @@ public class PlayerInput : MonoBehaviour
         // ColliderEnter¿Í ºñ½Á
         if (touch.phase == TouchPhase.Began)
         {
+            if (_currentMode == Mode.AnchorSetting)
+            {
+                return;
+            }
+
             Ray ray;
             ray = _camera.ScreenPointToRay(touch.position);
 
@@ -44,19 +58,9 @@ public class PlayerInput : MonoBehaviour
             int layerMask = 1 << LayerMask.NameToLayer("Marker");
             if (Physics.Raycast(ray, out hit, 10f, layerMask))
             {
-                if (EventSystem.current.IsPointerOverGameObject() == true)
-                {
-                    return;
-                }
-
                 hit.transform.GetComponent<Marker>().Click();
 
-                return;
-            }
-
-            if (MarkerCount.Count >= 1)
-            {
-                return;
+                _currentMode = Mode.AnchorSetting;
             }
 
             List<ARRaycastHit> arHits = new List<ARRaycastHit>();
@@ -68,11 +72,9 @@ public class PlayerInput : MonoBehaviour
 
                 Markers[_markerNowCount] = Instantiate(MarkerPrefab, arHit.pose.position + new Vector3(0f, 0.2f), arHit.pose.rotation);
                 Markers[_markerNowCount].GetComponent<Marker>().CreateAnchor(arHit);
-
-                MarkerCount.Count++;
                 _markerNowCount++;
 
-                return;
+                _currentMode = Mode.AnchorSetting;
             }
         }
     }
@@ -80,5 +82,10 @@ public class PlayerInput : MonoBehaviour
     public void DecreaseMarkerNowCount()
     {
         _markerNowCount--;
+    }
+
+    public void ModeSetting(Mode mode)
+    {
+        _currentMode = mode;
     }
 }

@@ -21,8 +21,8 @@ public class DeleteButton : MonoBehaviour
             Marker.CloudAnchorID = null;
         }
 
-        MarkerCount.Count--;
         _playerInput.DecreaseMarkerNowCount();
+        _playerInput.ModeSetting(Mode.AnchorPlacement);
 
         Destroy(Marker.gameObject);
     }

@@ -4,11 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
-public static class MarkerCount
-{
-    public static int Count = 0;
-}
-
 public class Marker : MonoBehaviour
 {
     public GameObject Panel;
@@ -30,7 +25,6 @@ public class Marker : MonoBehaviour
     public void Click()
     {
         Panel.SetActive(true);
-        MarkerCount.Count++;
     }
 
     public void CreateAnchor(ARRaycastHit arHit)
