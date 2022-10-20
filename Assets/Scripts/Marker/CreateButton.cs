@@ -9,12 +9,17 @@ public class CreateButton : MonoBehaviour
     public Marker Marker;
     public GameObject Panel;
 
-    private ARAnchorManager _arAnchorManager;
     private bool _cloudAnchorHosting = false;
+
+    private ARAnchorManager _arAnchorManager;
+    private DataManager _dataManager;
 
     private void Awake()
     {
-        _arAnchorManager = GameObject.Find("@GameManager").GetComponent<ARAnchorManager>();
+        GameObject gameManager = GameObject.Find("@GameManager");
+
+        _arAnchorManager = gameManager.GetComponent<ARAnchorManager>();
+        _dataManager = gameManager.GetComponent<DataManager>();
     }
 
     private void Update()

@@ -92,7 +92,7 @@ public class JsonSaveLoadTest : MonoBehaviour
 
     public void Load()
     {
-        List<Data> loadDatas = new List<Data>();
+        List<Data> loadDatas;
         string filePath = Path.Combine(Application.persistentDataPath, "DataFile/SaveData.Json");
 
         if (!File.Exists(filePath))

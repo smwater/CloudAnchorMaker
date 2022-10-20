@@ -14,6 +14,9 @@ public class Marker : MonoBehaviour
     public GameObject Panel;
     public ARAnchor ARAnchor { get; private set; }
     [HideInInspector] public ARCloudAnchor ARCloudAnchor;
+
+    [HideInInspector] public int Index;
+    [HideInInspector] public string Name = "Default";
     [HideInInspector] public string CloudAnchorID;
 
     private ARAnchorManager _arAnchorManager;
