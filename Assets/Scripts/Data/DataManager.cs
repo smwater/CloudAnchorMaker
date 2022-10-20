@@ -2,7 +2,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
+
+[Serializable]
+public class SerializationData<T>
+{
+    [SerializeField] private List<T> _data;
+    [SerializeField] private int _dataCount;
+
+    public List<T> ToList()
+    {
+        return _data;
+    }
+
+    public int CheckCount()
+    {
+        return _dataCount;
+    }
+
+    public SerializationData(List<T> data, int count)
+    {
+        _data = data;
+        _dataCount = count;
+    }
+}
 
 [Serializable]
 public class AnchorData
@@ -21,72 +45,85 @@ public class AnchorData
 
 public class DataManager : MonoBehaviour
 {
-    private static GameObject _container;
-    private static DataManager _instance;
-    public static DataManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _container = new GameObject();
-                _container.name = "DataManager";
-                _instance = _container.AddComponent<DataManager>();
+    private List<AnchorData> _anchorDatas = new List<AnchorData>();
 
-                DontDestroyOnLoad(_container);
-            }
-
-            return _instance;
-        }
-    }
-
+    [HideInInspector] public string DataFileName = "DataFile";
     [HideInInspector] public string AnchorDataFileName = "AnchorData.json";
 
-    private AnchorData _anchorDatas;
-    public AnchorData AnchorData
+    public bool AddAnchorData(int index, string name, string ID)
     {
-        get
+        if (_anchorDatas[index] != null)
         {
-            if (_anchorDatas == null)
-            {
-                LoadAnchorData();
-                SaveAnchorData();
-            }
-
-            return _anchorDatas;
+            return false;
         }
+
+        AnchorData createdAnchor = new AnchorData(index, name, ID);
+        _anchorDatas.Add(createdAnchor);
+
+        return true;
     }
 
-    public void InitAnchorData(int index, string name, string ID)
+    public bool DeleteAnchorData(int index)
     {
-        _anchorDatas = new AnchorData(index, name, ID);
+        if (_anchorDatas[index] == null)
+        {
+            return false;
+        }
+
+        AnchorData deletedAnchor = _anchorDatas[index];
+        _anchorDatas.Remove(deletedAnchor);
+
+        return true;
     }
 
     public void SaveAnchorData()
     {
-        InitAnchorData(-1, "Name", "ID");
-        string toJsonData = JsonUtility.ToJson(_anchorDatas, true);
-        string filePath = Application.persistentDataPath + AnchorDataFileName;
-        File.WriteAllText(filePath, toJsonData);
+        if (_anchorDatas.Count == 0)
+        {
+            Debug.Log("저장할 앵커가 없습니다.");
+            return;
+        }
+
+        string toJson = JsonUtility.ToJson(new SerializationData<AnchorData>(_anchorDatas, _anchorDatas.Count));
+
+        if (!Directory.Exists(Application.persistentDataPath + DataFileName))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + DataFileName);
+        }
+
+        string filePath = Path.Combine(Application.persistentDataPath, DataFileName, AnchorDataFileName);
+
+        FileStream fileStream = new FileStream(filePath, FileMode.Create);
+        byte[] byteData = Encoding.UTF8.GetBytes(toJson);
+        fileStream.Write(byteData, 0, byteData.Length);
+        fileStream.Close();
     }
 
     public void LoadAnchorData()
     {
-        string filePath = Application.persistentDataPath + AnchorDataFileName;
+        string filePath = Path.Combine(Application.persistentDataPath, DataFileName, AnchorDataFileName);
 
-        if (File.Exists(filePath))
+        if (!File.Exists(filePath))
         {
-            string fromJsonData = File.ReadAllText(filePath);
-            _anchorDatas = JsonUtility.FromJson<AnchorData>(fromJsonData);
-
-            if (_anchorDatas == null)
-            {
-                InitAnchorData(-1, "Name", "ID");
-            }
+            Debug.Log("해당 파일을 찾을 수 없습니다.");
         }
         else
         {
-            InitAnchorData(-1, "Name", "ID");
+            FileStream fileStream = new FileStream(filePath, FileMode.Open);
+            byte[] byteData = new byte[fileStream.Length];
+            fileStream.Read(byteData, 0, byteData.Length);
+            fileStream.Close();
+            string fromJson = Encoding.UTF8.GetString(byteData);
+
+            SerializationData<AnchorData> serializationData = JsonUtility.FromJson<SerializationData<AnchorData>>(fromJson);
+            _anchorDatas = serializationData.ToList();
+            int dataCount = serializationData.CheckCount();
+
+            if (dataCount == 0)
+            {
+                Debug.Log("저장된 내용이 없습니다.");
+                return;
+            }
         }
     }
 }
