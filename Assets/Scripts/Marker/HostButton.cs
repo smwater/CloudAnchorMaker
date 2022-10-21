@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
-public class CreateButton : MonoBehaviour
+public class HostButton : MonoBehaviour
 {
     public bool CloudAnchorHosting { get; private set; }
 
@@ -39,7 +39,7 @@ public class CreateButton : MonoBehaviour
         }
         if (Marker.ARCloudAnchor.cloudAnchorState == CloudAnchorState.Success)
         {
-            Debug.Log("클라우드 성공적으로 호스팅 했다!");
+            Debug.Log("성공적으로 호스팅 했다!");
             Marker.CloudAnchorID = Marker.ARCloudAnchor.cloudAnchorId;
             CloudAnchorHosting = false;
             _dataManager.AddAnchorData(Marker.Index, Marker.Name, Marker.CloudAnchorID);

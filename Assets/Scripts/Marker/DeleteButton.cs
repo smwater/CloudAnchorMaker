@@ -5,7 +5,7 @@ using UnityEngine;
 public class DeleteButton : MonoBehaviour
 {
     public Marker Marker;
-    public CreateButton CreateButton;
+    public HostButton CreateButton;
 
     private PlayerInput _playerInput;
     private DataManager _dataManager;
