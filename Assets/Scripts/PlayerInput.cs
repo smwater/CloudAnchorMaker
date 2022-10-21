@@ -45,6 +45,12 @@ public class PlayerInput : MonoBehaviour
         // 동시에 여러 손가락으로 터치했을 경우, 첫번째 터치만 인식
         Touch touch = Input.GetTouch(0);
 
+        // 첫번째 터치에 한해, UI 뒤쪽 인식 방지
+        if (EventSystem.current.IsPointerOverGameObject(0))
+        {
+            return;
+        }
+
         // GetKeyDown과 비슷
         if (touch.phase == TouchPhase.Began)
         {
