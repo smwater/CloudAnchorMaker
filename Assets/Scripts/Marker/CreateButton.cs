@@ -40,6 +40,7 @@ public class CreateButton : MonoBehaviour
             Debug.Log("클라우드 성공적으로 호스팅 했다!");
             Marker.CloudAnchorID = Marker.ARCloudAnchor.cloudAnchorId;
             _cloudAnchorHosting = false;
+            _dataManager.AddAnchorData(Marker.Index, Marker.Name, Marker.CloudAnchorID);
 
             Panel.SetActive(false);
             _playerInput.ModeSetting(Mode.MarkerPlacement);
@@ -60,6 +61,8 @@ public class CreateButton : MonoBehaviour
         if (Marker.ARCloudAnchor != null)
         {
             Debug.Log("클라우드 앵커 이미 있는데?");
+            Panel.SetActive(false);
+            _playerInput.ModeSetting(Mode.MarkerPlacement);
             return;
         }
 

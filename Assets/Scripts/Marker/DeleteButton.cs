@@ -7,9 +7,11 @@ public class DeleteButton : MonoBehaviour
     public Marker Marker;
 
     private PlayerInput _playerInput;
+    private DataManager _dataManager;
 
     private void Awake()
     {
+        _dataManager = GameObject.Find("@GameManager").GetComponent<DataManager>();
         _playerInput = GameObject.Find("AR Camera").GetComponent<PlayerInput>();
     }
 
@@ -17,6 +19,7 @@ public class DeleteButton : MonoBehaviour
     {
         if (Marker.ARCloudAnchor != null)
         {
+            _dataManager.DeleteAnchorData(Marker.Index);
             Marker.ARCloudAnchor.OnDestroy();
             Marker.CloudAnchorID = null;
         }

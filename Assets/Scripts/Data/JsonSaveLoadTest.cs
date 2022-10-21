@@ -88,6 +88,8 @@ public class JsonSaveLoadTest : MonoBehaviour
         byte[] byteData = Encoding.UTF8.GetBytes(toJson);
         fileStream.Write(byteData, 0, byteData.Length);
         fileStream.Close();
+
+        Debug.Log("성공적으로 세이브했습니다.");
     }
 
     public void Load()
