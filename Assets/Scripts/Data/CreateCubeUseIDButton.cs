@@ -12,7 +12,7 @@ public class CreateCubeUseIDButton : MonoBehaviour
 
     public void Click()
     {
-        int anchorCount = DataManager.AnchorDatas.Count;
+        int anchorCount = DataManager.CountAnchorData();
 
         if (anchorCount == 0)
         {
@@ -22,7 +22,7 @@ public class CreateCubeUseIDButton : MonoBehaviour
 
         for (int i = 0; i < anchorCount; i++)
         {
-            ARCloudAnchor arCloudAnchor = ARAnchorManagerExtensions.ResolveCloudAnchorId(arAnchorManager, DataManager.AnchorDatas[i].AnchorID);
+            ARCloudAnchor arCloudAnchor = ARAnchorManagerExtensions.ResolveCloudAnchorId(arAnchorManager, DataManager.GetAnchorID(i));
 
             Instantiate(CubePrefab, arCloudAnchor.gameObject.transform);
         }

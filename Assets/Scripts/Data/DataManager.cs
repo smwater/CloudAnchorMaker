@@ -58,10 +58,29 @@ public class AnchorData
 
 public class DataManager : MonoBehaviour
 {
-    public List<AnchorData> AnchorDatas = new List<AnchorData>();
+    private List<AnchorData> _anchorDatas = new List<AnchorData>();
 
     [HideInInspector] public string DataFileName = "DataFile";
     [HideInInspector] public string AnchorDataFileName = "AnchorData.json";
+
+    /// <summary>
+    /// Anchor List에 data가 몇 개 있는지 반환하는 메서드
+    /// </summary>
+    /// <returns>Anchor data의 개수</returns>
+    public int CountAnchorData()
+    {
+        return _anchorDatas.Count;
+    }
+
+    /// <summary>
+    /// 특정 앵커의 ID를 반환하는 메서드
+    /// </summary>
+    /// <param name="index">ID를 반환하고 싶은 Anchor의 index</param>
+    /// <returns>Anchor의 ID</returns>
+    public string GetAnchorID(int index)
+    {
+        return _anchorDatas[index].AnchorID;
+    }
 
     /// <summary>
     /// Anchor List에 Anchor를 추가하는 메서드
@@ -81,7 +100,7 @@ public class DataManager : MonoBehaviour
 
         // list에 새로운 Anchor를 추가한다.
         AnchorData createdAnchor = new AnchorData(name, ID);
-        AnchorDatas.Add(createdAnchor);
+        _anchorDatas.Add(createdAnchor);
 
         return true;
     }
@@ -94,14 +113,14 @@ public class DataManager : MonoBehaviour
     public bool DeleteAnchorData(int index)
     {
         // 해당 index의 Anchor가 존재하지 않는다면 false 반환
-        if (AnchorDatas[index] == null)
+        if (_anchorDatas[index] == null)
         {
             return false;
         }
 
         // list에서 Anchor를 삭제한다.
-        AnchorData deletedAnchor = AnchorDatas[index];
-        AnchorDatas.Remove(deletedAnchor);
+        AnchorData deletedAnchor = _anchorDatas[index];
+        _anchorDatas.Remove(deletedAnchor);
 
         return true;
     }
@@ -112,14 +131,14 @@ public class DataManager : MonoBehaviour
     public void SaveAnchorData()
     {
         // Anchor List에 저장된 것이 없다면 return
-        if (AnchorDatas.Count == 0)
+        if (_anchorDatas.Count == 0)
         {
             Debug.Log("저장할 앵커가 없습니다.");
             return;
         }
 
         // List를 직렬화하는 생성자를 이용해 Json으로 변환
-        string toJson = JsonUtility.ToJson(new SerializationData<AnchorData>(AnchorDatas, AnchorDatas.Count));
+        string toJson = JsonUtility.ToJson(new SerializationData<AnchorData>(_anchorDatas, _anchorDatas.Count));
 
         // 해당 위치에 폴더가 없다면 생성
         if (!Directory.Exists(Path.Combine(Application.persistentDataPath, DataFileName)))
@@ -165,7 +184,7 @@ public class DataManager : MonoBehaviour
 
             // String data를 List 타입의 data로 변환
             SerializationData<AnchorData> serializationData = JsonUtility.FromJson<SerializationData<AnchorData>>(fromJson);
-            AnchorDatas = serializationData.ToList();
+            _anchorDatas = serializationData.ToList();
 
             Debug.Log("성공적으로 로드했습니다.");
 
