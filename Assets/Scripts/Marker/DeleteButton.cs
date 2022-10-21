@@ -32,11 +32,13 @@ public class DeleteButton : MonoBehaviour
         if (Marker.ARCloudAnchor != null)
         {
             _dataManager.DeleteAnchorData(Marker.Index);
+            Debug.Log("DeleteAnchorData 에서 문제 생김");
             Marker.ARCloudAnchor.OnDestroy();
             Marker.CloudAnchorID = null;
         }
 
-        _playerInput.DecreaseMarkerNowCount();
+        Debug.Log($"삭제하려는 번호 : {Marker.Index}");
+        _playerInput.FreeIndex(Marker.Index);
         _playerInput.ModeSetting(Mode.MarkerPlacement);
 
         Destroy(Marker.gameObject);

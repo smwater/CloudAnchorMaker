@@ -21,8 +21,10 @@ public class PlayerInput : MonoBehaviour
     private Camera _camera;
     private ARRaycastManager _arRaycastManager;
 
-    private int _markerMaxCount = 40;
-    private int _markerNowCount = 0;
+    private int _markerMaxCount = 3;
+    private int _markerUsedCount = 0;
+    private int _markerIndex = 0;
+    private List<int> _deletedMarkerIndexs = new List<int>();
 
     private Mode _currentMode = Mode.MarkerPlacement;
 
@@ -83,24 +85,39 @@ public class PlayerInput : MonoBehaviour
             // AR raycast로 AR Plane을 감지
             if (_arRaycastManager.Raycast(ray, arHits, TrackableType.PlaneWithinPolygon | TrackableType.FeaturePoint))
             {
-                // 해당하는 index의 마커가 이미 존재한다면
-                if (Markers[_markerNowCount] != null)
+                // Marker를 모두 생성했다면, log 출력
+                if (_markerUsedCount >= _markerMaxCount)
                 {
-                    // count를 바꿔주고 return
-                    _markerNowCount++;
+                    Debug.Log("생성 가능한 마커를 다 소모했습니다.");
                     return;
+                }
+
+                // 리스트에 사용할 index가 존재한다면
+                if (_deletedMarkerIndexs.Contains(_markerIndex))
+                {
+                    _deletedMarkerIndexs.Remove(_markerIndex);
+                }
+
+                // 사용할 index의 마커가 이미 존재한다면
+                if (Markers[_markerIndex] != null)
+                {
+                    // 해제된 Marker의 index를 재사용
+                    _markerIndex = _deletedMarkerIndexs[0];
+                    _deletedMarkerIndexs.Remove(_markerIndex);
                 }
 
                 // 여러 물체가 raycast로 인식 됐다면 가장 가깝게 감지된 곳을 저장
                 arHit = arHits[0];
 
                 // 감지된 위치에 Marker를 생성하고
-                Markers[_markerNowCount] = Instantiate(MarkerPrefab, arHit.pose.position + new Vector3(0f, 0.2f), arHit.pose.rotation);
+                Markers[_markerIndex] = Instantiate(MarkerPrefab, arHit.pose.position + new Vector3(0f, 0.2f), arHit.pose.rotation);
                 // local Anchor를 생성
-                Markers[_markerNowCount].GetComponent<Marker>().CreateAnchor(arHit);
-                // 이 marker가 몇번째로 생성된 marker인지 index를 넘겨줌
-                Markers[_markerNowCount].GetComponent<Marker>().Index = _markerNowCount;
-                _markerNowCount++;
+                Markers[_markerIndex].GetComponent<Marker>().CreateAnchor(arHit);
+                // 이 marker의 index를 넘겨줌
+                Markers[_markerIndex].GetComponent<Marker>().Index = _markerIndex;
+                Debug.Log($"사용한 index : {_markerIndex}");
+                _markerIndex = (_markerIndex + 1) % _markerMaxCount;
+                _markerUsedCount++;
 
                 _currentMode = Mode.MarkerSetting;
             }
@@ -108,11 +125,15 @@ public class PlayerInput : MonoBehaviour
     }
 
     /// <summary>
-    /// Marker를 삭제했을 때, Marker Count를 감소시켜주는 메서드
+    /// 해제된 마커의 index를 리스트에 넣는 메서드
     /// </summary>
-    public void DecreaseMarkerNowCount()
+    /// <param name="index">사용 해제된 Marker의 index</param>
+    public void FreeIndex(int index)
     {
-        _markerNowCount--;
+        Debug.Log($"삭제한 번호 : {index}");
+        _deletedMarkerIndexs.Add(index);
+        _markerUsedCount--;
+       Debug.Log($"남은 개수 : {_deletedMarkerIndexs.Count} / 맨 앞에 있는 거 : {_deletedMarkerIndexs[0]}");
     }
 
     /// <summary>
