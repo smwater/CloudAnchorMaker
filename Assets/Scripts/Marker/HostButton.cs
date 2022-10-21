@@ -9,7 +9,7 @@ public class HostButton : MonoBehaviour
     public bool CloudAnchorHosting { get; private set; }
 
     public Marker Marker;
-    public GameObject Panel;
+    public GameObject ButtonCanvas;
 
     private ARAnchorManager _arAnchorManager;
     private DataManager _dataManager;
@@ -44,7 +44,7 @@ public class HostButton : MonoBehaviour
             CloudAnchorHosting = false;
             _dataManager.AddAnchorData(Marker.Index, Marker.Name, Marker.CloudAnchorID);
 
-            Panel.SetActive(false);
+            ButtonCanvas.SetActive(false);
             _playerInput.ModeSetting(Mode.MarkerPlacement);
         }
         else
@@ -69,7 +69,7 @@ public class HostButton : MonoBehaviour
         if (Marker.ARCloudAnchor != null)
         {
             Debug.Log("기존에 호스팅한 클라우드 앵커입니다.");
-            Panel.SetActive(false);
+            ButtonCanvas.SetActive(false);
             _playerInput.ModeSetting(Mode.MarkerPlacement);
             return;
         }

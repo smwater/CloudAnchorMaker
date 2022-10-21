@@ -6,7 +6,7 @@ using UnityEngine.XR.ARFoundation;
 
 public class Marker : MonoBehaviour
 {
-    public GameObject Panel;
+    public GameObject ButtonCanvas;
     public ARAnchor ARAnchor { get; private set; }
     [HideInInspector] public ARCloudAnchor ARCloudAnchor;
 
@@ -24,7 +24,7 @@ public class Marker : MonoBehaviour
 
     public void Click()
     {
-        Panel.SetActive(true);
+        ButtonCanvas.SetActive(true);
     }
 
     public void CreateAnchor(ARRaycastHit arHit)
