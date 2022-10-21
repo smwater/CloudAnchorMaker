@@ -22,11 +22,18 @@ public class Marker : MonoBehaviour
         _arAnchorManager = GameObject.Find("@GameManager").GetComponent<ARAnchorManager>();
     }
 
+    /// <summary>
+    /// Marker의 Button UI를 띄우는 메서드
+    /// </summary>
     public void Click()
     {
         ButtonCanvas.SetActive(true);
     }
 
+    /// <summary>
+    /// 특정 지점에 로컬 앵커를 부착하는 메서드
+    /// </summary>
+    /// <param name="arHit">ArraycastHit로 특정된 지점</param>
     public void CreateAnchor(ARRaycastHit arHit)
     {
         if (arHit.trackable is ARPlane arPlane)

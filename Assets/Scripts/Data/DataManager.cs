@@ -13,7 +13,7 @@ public class SerializationData<T>
     [SerializeField] private int _dataCount;
 
     /// <summary>
-    /// 불러온 파일을 다시 List<T> 타입으로 변환해 반환하는 함수
+    /// 불러온 파일을 다시 List<T> 타입으로 변환해 반환하는 메서드
     /// </summary>
     /// <returns>List<T>의 data</returns>
     public List<T> ToList()
@@ -22,7 +22,7 @@ public class SerializationData<T>
     }
 
     /// <summary>
-    /// 저장된 데이터의 개수를 반환하는 함수
+    /// 저장된 데이터의 개수를 반환하는 메서드
     /// </summary>
     /// <returns>데이터의 개수</returns>
     public int CheckCount()

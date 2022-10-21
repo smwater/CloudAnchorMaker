@@ -16,14 +16,19 @@ public class DeleteButton : MonoBehaviour
         _playerInput = GameObject.Find("AR Camera").GetComponent<PlayerInput>();
     }
 
+    /// <summary>
+    /// 생성한 클라우드 앵커와 Marker를 삭제하는 메서드
+    /// </summary>
     public void Click()
     {
+        // 호스팅 중이라면 return
         if (CreateButton.CloudAnchorHosting)
         {
             Debug.Log("호스팅 중입니다. 잠시만 기다려주세요.");
             return;
         }
 
+        // 선택한 Marker에 클라우드 앵커가 존재한다면 삭제
         if (Marker.ARCloudAnchor != null)
         {
             _dataManager.DeleteAnchorData(Marker.Index);

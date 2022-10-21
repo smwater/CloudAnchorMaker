@@ -11,6 +11,9 @@ public class NameSaveButton : MonoBehaviour
     public GameObject ButtonCanvas;
     public GameObject NameCanvas;
 
+    /// <summary>
+    /// 변경한 Marker Name을 저장하는 메서드
+    /// </summary>
     public void Click()
     {
         Marker.Name = ChangeNameText.text;
