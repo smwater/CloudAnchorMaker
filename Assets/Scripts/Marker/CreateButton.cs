@@ -6,10 +6,10 @@ using UnityEngine.XR.ARFoundation;
 
 public class CreateButton : MonoBehaviour
 {
+    public bool CloudAnchorHosting { get; private set; }
+
     public Marker Marker;
     public GameObject Panel;
-
-    private bool _cloudAnchorHosting = false;
 
     private ARAnchorManager _arAnchorManager;
     private DataManager _dataManager;
@@ -17,6 +17,8 @@ public class CreateButton : MonoBehaviour
 
     private void Awake()
     {
+        CloudAnchorHosting = false;
+
         GameObject gameManager = GameObject.Find("@GameManager");
 
         _arAnchorManager = gameManager.GetComponent<ARAnchorManager>();
@@ -26,7 +28,7 @@ public class CreateButton : MonoBehaviour
 
     private void Update()
     {
-        if (!_cloudAnchorHosting)
+        if (!CloudAnchorHosting)
         {
             return;
         }
@@ -39,7 +41,7 @@ public class CreateButton : MonoBehaviour
         {
             Debug.Log("클라우드 성공적으로 호스팅 했다!");
             Marker.CloudAnchorID = Marker.ARCloudAnchor.cloudAnchorId;
-            _cloudAnchorHosting = false;
+            CloudAnchorHosting = false;
             _dataManager.AddAnchorData(Marker.Index, Marker.Name, Marker.CloudAnchorID);
 
             Panel.SetActive(false);
@@ -58,15 +60,21 @@ public class CreateButton : MonoBehaviour
             return;
         }
 
+        if (CloudAnchorHosting)
+        {
+            Debug.Log("호스팅 중입니다. 잠시만 기다려주세요.");
+            return;
+        }
+
         if (Marker.ARCloudAnchor != null)
         {
-            Debug.Log("클라우드 앵커 이미 있는데?");
+            Debug.Log("기존에 호스팅한 클라우드 앵커입니다.");
             Panel.SetActive(false);
             _playerInput.ModeSetting(Mode.MarkerPlacement);
             return;
         }
 
         Marker.ARCloudAnchor = ARAnchorManagerExtensions.HostCloudAnchor(_arAnchorManager, Marker.ARAnchor);
-        _cloudAnchorHosting = true;
+        CloudAnchorHosting = true;
     }
 }

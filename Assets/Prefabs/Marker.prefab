@@ -540,6 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Marker: {fileID: 8995900056342352966}
+  CreateButton: {fileID: 6334460030375259382}
 --- !u!1 &1303308743
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,3 +922,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Panel: {fileID: 118744350}
   ARCloudAnchor: {fileID: 0}
+  Index: 0
+  Name: Default
+  CloudAnchorID: 

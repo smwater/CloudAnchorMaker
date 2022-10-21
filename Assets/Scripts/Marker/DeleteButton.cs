@@ -5,6 +5,7 @@ using UnityEngine;
 public class DeleteButton : MonoBehaviour
 {
     public Marker Marker;
+    public CreateButton CreateButton;
 
     private PlayerInput _playerInput;
     private DataManager _dataManager;
@@ -17,6 +18,12 @@ public class DeleteButton : MonoBehaviour
 
     public void Click()
     {
+        if (CreateButton.CloudAnchorHosting)
+        {
+            Debug.Log("호스팅 중입니다. 잠시만 기다려주세요.");
+            return;
+        }
+
         if (Marker.ARCloudAnchor != null)
         {
             _dataManager.DeleteAnchorData(Marker.Index);
