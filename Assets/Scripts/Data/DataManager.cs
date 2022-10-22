@@ -85,44 +85,24 @@ public class DataManager : MonoBehaviour
     /// <summary>
     /// Anchor List에 Anchor를 추가하는 메서드
     /// </summary>
-    /// <param name="index">추가할 Anchor의 index</param>
     /// <param name="name">추가할 Anchor의 이름</param>
     /// <param name="ID">추가할 Anchor의 ID</param>
-    /// <returns>추가에 성공했다면 true, 아니면 false</returns>
-    public bool AddAnchorData(int index, string name, string ID)
+    public void AddAnchorData(string name, string ID)
     {
-        // 해당 index의 Anchor가 존재한다면 false 반환
-        //if (AnchorDatas[index] != null)
-        //{
-        //    Debug.Log("앵커가 이미 저장됨");
-        //    return false;
-        //}
-
         // list에 새로운 Anchor를 추가한다.
         AnchorData createdAnchor = new AnchorData(name, ID);
         _anchorDatas.Add(createdAnchor);
-
-        return true;
     }
 
     /// <summary>
     /// Anchor list에서 Anchor를 삭제하는 메서드
     /// </summary>
     /// <param name="index">삭제할 Anchor의 index</param>
-    /// <returns>삭제에 성공했다면 true, 아니면 false</returns>
-    public bool DeleteAnchorData(int index)
+    public void DeleteAnchorData(int index)
     {
-        // 해당 index의 Anchor가 존재하지 않는다면 false 반환
-        if (_anchorDatas[index] == null)
-        {
-            return false;
-        }
-
         // list에서 Anchor를 삭제한다.
         AnchorData deletedAnchor = _anchorDatas[index];
         _anchorDatas.Remove(deletedAnchor);
-
-        return true;
     }
 
     /// <summary>

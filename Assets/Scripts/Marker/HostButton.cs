@@ -45,7 +45,7 @@ public class HostButton : MonoBehaviour
             Debug.Log("성공적으로 호스팅 했다!");
             Marker.CloudAnchorID = Marker.ARCloudAnchor.cloudAnchorId;
             CloudAnchorHosting = false;
-            _dataManager.AddAnchorData(Marker.Index, Marker.Name, Marker.CloudAnchorID);
+            _dataManager.AddAnchorData(Marker.Name, Marker.CloudAnchorID);
 
             ButtonCanvas.SetActive(false);
             _playerInput.ModeSetting(Mode.MarkerPlacement);

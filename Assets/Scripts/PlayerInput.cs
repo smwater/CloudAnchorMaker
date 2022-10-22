@@ -21,10 +21,9 @@ public class PlayerInput : MonoBehaviour
     private Camera _camera;
     private ARRaycastManager _arRaycastManager;
 
-    private int _markerMaxCount = 3;
-    private int _markerUsedCount = 0;
+    private int _markerMaxCount = 40;
     private int _markerIndex = 0;
-    private List<int> _deletedMarkerIndexs = new List<int>();
+    private int _markerUsedCount = 0;
 
     private Mode _currentMode = Mode.MarkerPlacement;
 
@@ -92,20 +91,6 @@ public class PlayerInput : MonoBehaviour
                     return;
                 }
 
-                // 리스트에 사용할 index가 존재한다면
-                if (_deletedMarkerIndexs.Contains(_markerIndex))
-                {
-                    _deletedMarkerIndexs.Remove(_markerIndex);
-                }
-
-                // 사용할 index의 마커가 이미 존재한다면
-                if (Markers[_markerIndex] != null)
-                {
-                    // 해제된 Marker의 index를 재사용
-                    _markerIndex = _deletedMarkerIndexs[0];
-                    _deletedMarkerIndexs.Remove(_markerIndex);
-                }
-
                 // 여러 물체가 raycast로 인식 됐다면 가장 가깝게 감지된 곳을 저장
                 arHit = arHits[0];
 
@@ -115,7 +100,6 @@ public class PlayerInput : MonoBehaviour
                 Markers[_markerIndex].GetComponent<Marker>().CreateAnchor(arHit);
                 // 이 marker의 index를 넘겨줌
                 Markers[_markerIndex].GetComponent<Marker>().Index = _markerIndex;
-                Debug.Log($"사용한 index : {_markerIndex}");
                 _markerIndex = (_markerIndex + 1) % _markerMaxCount;
                 _markerUsedCount++;
 
@@ -125,15 +109,17 @@ public class PlayerInput : MonoBehaviour
     }
 
     /// <summary>
-    /// 해제된 마커의 index를 리스트에 넣는 메서드
+    /// 해제된 마커보다 index가 높은 마커들을 정리해주는 메서드
     /// </summary>
     /// <param name="index">사용 해제된 Marker의 index</param>
     public void FreeIndex(int index)
     {
-        Debug.Log($"삭제한 번호 : {index}");
-        _deletedMarkerIndexs.Add(index);
         _markerUsedCount--;
-       Debug.Log($"남은 개수 : {_deletedMarkerIndexs.Count} / 맨 앞에 있는 거 : {_deletedMarkerIndexs[0]}");
+        for (int i = index; i < _markerUsedCount; i++)
+        {
+            Markers[i + 1].GetComponent<Marker>().Index = index;
+        }
+        _markerIndex = _markerUsedCount;
     }
 
     /// <summary>
