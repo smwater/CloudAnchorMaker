@@ -36,7 +36,6 @@ public class DeleteButton : MonoBehaviour
             Marker.CloudAnchorID = null;
         }
 
-        Debug.Log($"삭제하려는 번호 : {Marker.Index}");
         _playerInput.FreeIndex(Marker.Index);
         _playerInput.ModeSetting(Mode.MarkerPlacement);
 
