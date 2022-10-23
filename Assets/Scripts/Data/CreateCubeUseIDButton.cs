@@ -31,7 +31,7 @@ public class CreateCubeUseIDButton : MonoBehaviour
             if (arCloudAnchor == null)
             {
                 // 클라우드 앵커가 없다면 log 출력
-                Debug.Log("CloudAnchor가 없습니다.");
+                Debug.Log("해당 ID로 앵커를 생성할 수 없습니다.");
             }
             else
             {
