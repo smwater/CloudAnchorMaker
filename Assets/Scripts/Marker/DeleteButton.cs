@@ -5,7 +5,7 @@ using UnityEngine;
 public class DeleteButton : MonoBehaviour
 {
     public Marker Marker;
-    public HostButton CreateButton;
+    public HostButton HostButton;
 
     private PlayerInput _playerInput;
     private DataManager _dataManager;
@@ -22,7 +22,7 @@ public class DeleteButton : MonoBehaviour
     public void Click()
     {
         // 호스팅 중이라면 return
-        if (CreateButton.CloudAnchorHosting)
+        if (HostButton.CloudAnchorHosting)
         {
             Debug.Log("호스팅 중입니다. 잠시만 기다려주세요.");
             return;
