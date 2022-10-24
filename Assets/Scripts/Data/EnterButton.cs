@@ -11,10 +11,8 @@ public class EnterButton : MonoBehaviour
 
     public void Click()
     {
-        if (FileNameChangeText.text != null)
-        {
-            DataManager.DataFileName = FileNameChangeText.text;
-        }
+        DataManager.AnchorDataFileName = FileNameChangeText.text + ".json";
+        Debug.Log($"현재 파일 이름 : {DataManager.AnchorDataFileName}");
 
         ChangePanel.SetActive(false);
     }
