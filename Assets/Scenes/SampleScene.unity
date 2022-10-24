@@ -977,6 +977,7 @@ GameObject:
   - component: {fileID: 948868353}
   - component: {fileID: 948868352}
   - component: {fileID: 948868351}
+  - component: {fileID: 948868354}
   m_Layer: 5
   m_Name: File Name Change Button
   m_TagString: Untagged
@@ -1048,8 +1049,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SaveButton, Assembly-CSharp
+      - m_Target: {fileID: 948868354}
+        m_TargetAssemblyTypeName: FileNameChangeButton, Assembly-CSharp
         m_MethodName: Click
         m_Mode: 1
         m_Arguments:
@@ -1098,6 +1099,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 948868349}
   m_CullTransparentMesh: 1
+--- !u!114 &948868354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948868349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10658548cb0bbf34ea0880e508e8c853, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChangePanel: {fileID: 743103344}
 --- !u!1 &1202129770
 GameObject:
   m_ObjectHideFlags: 0
