@@ -16,6 +16,7 @@ public class NameButton : MonoBehaviour
         // 호스팅 중이라면 return
         if (HostButton.CloudAnchorHosting)
         {
+            Debug.Log("호스팅 중입니다. 잠시만 기다려주세요.");
             return;
         }
 
