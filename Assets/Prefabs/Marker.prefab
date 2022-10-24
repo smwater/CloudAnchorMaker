@@ -541,7 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Marker: {fileID: 8995900056342352966}
-  CreateButton: {fileID: 6334460030375259382}
+  HostButton: {fileID: 6334460030375259382}
 --- !u!1 &1303308743
 GameObject:
   m_ObjectHideFlags: 0
@@ -2170,6 +2170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0336244bc8becbd44aab52b9d1bc21b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HostButton: {fileID: 6334460030375259382}
   NameCanvas: {fileID: 3163341960967224658}
   ButtonCanvas: {fileID: 1303308743}
 --- !u!1 &7672288624611652175
