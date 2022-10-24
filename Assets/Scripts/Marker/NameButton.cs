@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NameButton : MonoBehaviour
 {
+    public HostButton HostButton;
     public GameObject NameCanvas;
     public GameObject ButtonCanvas;
 
@@ -12,6 +13,12 @@ public class NameButton : MonoBehaviour
     /// </summary>
     public void Click()
     {
+        // 호스팅 중이라면 return
+        if (HostButton.CloudAnchorHosting)
+        {
+            return;
+        }
+
         NameCanvas.SetActive(true);
         ButtonCanvas.SetActive(false);
     }
