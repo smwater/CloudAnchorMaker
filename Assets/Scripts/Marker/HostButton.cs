@@ -84,7 +84,7 @@ public class HostButton : MonoBehaviour
         }
 
         // 마커에 부착된 앵커를 클라우드 앵커로 호스팅
-        Marker.ARCloudAnchor = ARAnchorManagerExtensions.HostCloudAnchor(_arAnchorManager, Marker.ARAnchor, 2);
+        Marker.ARCloudAnchor = ARAnchorManagerExtensions.HostCloudAnchor(_arAnchorManager, Marker.ARAnchor, 365);
         CloudAnchorHosting = true;
     }
 }
