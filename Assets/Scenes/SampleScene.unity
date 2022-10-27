@@ -2598,7 +2598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CubePrefab: {fileID: 5320080580628253954, guid: ef8af28b2cb4ff74db173b8efe96f180, type: 3}
-  arAnchorManager: {fileID: 1316712387}
+  ARAnchorManager: {fileID: 1316712387}
   DataManager: {fileID: 1316712391}
 --- !u!1 &3656713205673254844
 GameObject:
