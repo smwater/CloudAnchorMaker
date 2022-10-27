@@ -27,7 +27,7 @@ public class CreateCubeUseIDButton : MonoBehaviour
         {
             // 클라우드 앵커 ID에서 클라우드 앵커를 반환
             ARCloudAnchor arCloudAnchor = ARAnchorManager.ResolveCloudAnchorId(DataManager.GetAnchorID(i));
-
+            Instantiate(CubePrefab, arCloudAnchor.transform);
             // 클라우드 앵커가 존재하는 위치에 큐브를 생성
             Debug.Log("CloudAnchorID를 기반으로 큐브를 생성했습니다.");
         }
