@@ -117,7 +117,7 @@ public class PlaceMarker : MonoBehaviour
         _markerUsedCount--;
         for (int i = index; i < _markerUsedCount; i++)
         {
-            _markers[i + 1].GetComponent<Marker>().Index = index;
+            _markers[i + 1].GetComponent<Marker>().Index = i;
         }
         _markerIndex = _markerUsedCount;
     }
