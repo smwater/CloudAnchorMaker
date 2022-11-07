@@ -7,13 +7,13 @@ public class DeleteButton : MonoBehaviour
     public Marker Marker;
     public HostButton HostButton;
 
-    private PlayerInput _playerInput;
+    private PlaceMarker _playerInput;
     private DataManager _dataManager;
 
     private void Awake()
     {
         _dataManager = GameObject.Find("@GameManager").GetComponent<DataManager>();
-        _playerInput = GameObject.Find("AR Camera").GetComponent<PlayerInput>();
+        _playerInput = GameObject.Find("AR Camera").GetComponent<PlaceMarker>();
     }
 
     /// <summary>

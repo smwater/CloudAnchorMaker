@@ -13,7 +13,7 @@ public class HostButton : MonoBehaviour
 
     private ARAnchorManager _arAnchorManager;
     private DataManager _dataManager;
-    private PlayerInput _playerInput;
+    private PlaceMarker _playerInput;
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class HostButton : MonoBehaviour
 
         _arAnchorManager = gameManager.GetComponent<ARAnchorManager>();
         _dataManager = gameManager.GetComponent<DataManager>();
-        _playerInput = GameObject.Find("AR Camera").GetComponent<PlayerInput>();
+        _playerInput = GameObject.Find("AR Camera").GetComponent<PlaceMarker>();
     }
 
     private void Update()

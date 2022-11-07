@@ -13,10 +13,10 @@ public enum Mode
     None
 }
 
-public class PlayerInput : MonoBehaviour
+public class PlaceMarker : MonoBehaviour
 {
-    public GameObject MarkerPrefab;
-    [HideInInspector] public GameObject[] Markers;
+    [SerializeField] private GameObject _markerPrefab;
+    private GameObject[] _markers;
 
     private Camera _camera;
     private ARRaycastManager _arRaycastManager;
@@ -31,7 +31,7 @@ public class PlayerInput : MonoBehaviour
     {
         _camera = GetComponent<Camera>();
         _arRaycastManager = GetComponent<ARRaycastManager>();
-        Markers = new GameObject[_markerMaxCount];
+        _markers = new GameObject[_markerMaxCount];
     }
 
     // Update is called once per frame
@@ -95,11 +95,11 @@ public class PlayerInput : MonoBehaviour
                 arHit = arHits[0];
 
                 // 감지된 위치에 Marker를 생성하고
-                Markers[_markerIndex] = Instantiate(MarkerPrefab, arHit.pose.position + new Vector3(0f, 0.2f), arHit.pose.rotation);
+                _markers[_markerIndex] = Instantiate(_markerPrefab, arHit.pose.position + new Vector3(0f, 0.2f), arHit.pose.rotation);
                 // local Anchor를 생성
-                Markers[_markerIndex].GetComponent<Marker>().CreateAnchor(arHit);
+                _markers[_markerIndex].GetComponent<Marker>().CreateAnchor(arHit);
                 // 이 marker의 index를 넘겨줌
-                Markers[_markerIndex].GetComponent<Marker>().Index = _markerIndex;
+                _markers[_markerIndex].GetComponent<Marker>().Index = _markerIndex;
                 _markerIndex = (_markerIndex + 1) % _markerMaxCount;
                 _markerUsedCount++;
 
@@ -117,7 +117,7 @@ public class PlayerInput : MonoBehaviour
         _markerUsedCount--;
         for (int i = index; i < _markerUsedCount; i++)
         {
-            Markers[i + 1].GetComponent<Marker>().Index = index;
+            _markers[i + 1].GetComponent<Marker>().Index = index;
         }
         _markerIndex = _markerUsedCount;
     }
