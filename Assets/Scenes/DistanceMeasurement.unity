@@ -382,7 +382,6 @@ GameObject:
   - component: {fileID: 1763006891}
   - component: {fileID: 1763006897}
   - component: {fileID: 1763006896}
-  - component: {fileID: 1763006898}
   - component: {fileID: 1763006899}
   m_Layer: 0
   m_Name: AR Camera
@@ -526,20 +525,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 1763006890}
---- !u!114 &1763006898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763006889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed5fcbf5dab3c76448f2bf930f920bdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MarkerPrefab: {fileID: 4823663640164618207, guid: 0c00ef0384f226248aa17be30f34b36f, type: 3}
-  Markers: []
 --- !u!114 &1763006899
 MonoBehaviour:
   m_ObjectHideFlags: 0
