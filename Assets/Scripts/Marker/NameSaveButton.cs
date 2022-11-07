@@ -5,21 +5,21 @@ using UnityEngine;
 
 public class NameSaveButton : MonoBehaviour
 {
-    public Marker Marker;
-    public TextMeshProUGUI ChangeNameText;
-    public MarkerName MarkerName;
-    public GameObject ButtonCanvas;
-    public GameObject NameCanvas;
+    [SerializeField] private Marker _marker;
+    [SerializeField] private TextMeshProUGUI _changeNameText;
+    [SerializeField] private MarkerName _markerName;
+    [SerializeField] private GameObject _buttonCanvas;
+    [SerializeField] private GameObject _nameCanvas;
 
     /// <summary>
     /// 변경한 Marker Name을 저장하는 메서드
     /// </summary>
     public void Click()
     {
-        Marker.Name = ChangeNameText.text;
-        MarkerName.ChangeName();
+        _marker.Name = _changeNameText.text;
+        _markerName.ChangeName();
 
-        ButtonCanvas.SetActive(true);
-        NameCanvas.SetActive(false);
+        _buttonCanvas.SetActive(true);
+        _nameCanvas.SetActive(false);
     }
 }

@@ -540,8 +540,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b37676fc509c7429f4967f8a9b01f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Marker: {fileID: 8995900056342352966}
-  HostButton: {fileID: 6334460030375259382}
+  _marker: {fileID: 8995900056342352966}
+  _hostButton: {fileID: 6334460030375259382}
 --- !u!1 &1303308743
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,8 +809,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb230dd7ee6cbc04dba90ef56baecde4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Marker: {fileID: 8995900056342352966}
-  ButtonCanvas: {fileID: 1303308743}
+  _marker: {fileID: 8995900056342352966}
+  _buttonCanvas: {fileID: 1303308743}
 --- !u!1 &1200905196118358489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,11 +1434,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a1fdee611c4b24983e53b9d60cbfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ButtonCanvas: {fileID: 1303308743}
   ARCloudAnchor: {fileID: 0}
   Index: 0
   Name: Default
   CloudAnchorID: 
+  _buttonCanvas: {fileID: 1303308743}
 --- !u!1 &4968663836428795726
 GameObject:
   m_ObjectHideFlags: 0
@@ -2453,8 +2453,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774614391ec748a478813d4aeb20fc05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Marker: {fileID: 8995900056342352966}
-  ChangeNameText: {fileID: 9138426342399484388}
-  MarkerName: {fileID: 7663579987688045894}
-  ButtonCanvas: {fileID: 1303308743}
-  NameCanvas: {fileID: 3163341960967224658}
+  _marker: {fileID: 8995900056342352966}
+  _changeNameText: {fileID: 9138426342399484388}
+  _markerName: {fileID: 7663579987688045894}
+  _buttonCanvas: {fileID: 1303308743}
+  _nameCanvas: {fileID: 3163341960967224658}

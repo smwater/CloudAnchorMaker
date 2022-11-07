@@ -58,10 +58,10 @@ public class AnchorData
 
 public class DataManager : MonoBehaviour
 {
-    private List<AnchorData> _anchorDatas = new List<AnchorData>();
-
-    [HideInInspector] public string DataFileName = "DataFile";
     [HideInInspector] public string AnchorDataFileName = "AnchorData.json";
+
+    private List<AnchorData> _anchorDatas = new List<AnchorData>();
+    private string _dataFileName = "DataFile";
 
     /// <summary>
     /// Anchor List에 data가 몇 개 있는지 반환하는 메서드
@@ -121,13 +121,13 @@ public class DataManager : MonoBehaviour
         string toJson = JsonUtility.ToJson(new SerializationData<AnchorData>(_anchorDatas, _anchorDatas.Count));
 
         // 해당 위치에 폴더가 없다면 생성
-        if (!Directory.Exists(Path.Combine(Application.persistentDataPath, DataFileName)))
+        if (!Directory.Exists(Path.Combine(Application.persistentDataPath, _dataFileName)))
         {
-            Directory.CreateDirectory(Path.Combine(Application.persistentDataPath, DataFileName));
+            Directory.CreateDirectory(Path.Combine(Application.persistentDataPath, _dataFileName));
         }
 
         // 파일을 저장할 경로 생성
-        string filePath = Path.Combine(Application.persistentDataPath, DataFileName, AnchorDataFileName);
+        string filePath = Path.Combine(Application.persistentDataPath, _dataFileName, AnchorDataFileName);
 
         // 해당 경로에 파일을 저장
         FileStream fileStream = new FileStream(filePath, FileMode.Create);
@@ -144,7 +144,7 @@ public class DataManager : MonoBehaviour
     public void LoadAnchorData()
     {
         // 파일을 불러올 경로 생성
-        string filePath = Path.Combine(Application.persistentDataPath, DataFileName, AnchorDataFileName);
+        string filePath = Path.Combine(Application.persistentDataPath, _dataFileName, AnchorDataFileName);
 
         // 해당 경로에 파일이 존재하지 않는다면 log 출력
         if (!File.Exists(filePath))

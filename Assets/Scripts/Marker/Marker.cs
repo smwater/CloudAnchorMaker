@@ -6,7 +6,6 @@ using UnityEngine.XR.ARFoundation;
 
 public class Marker : MonoBehaviour
 {
-    public GameObject ButtonCanvas;
     public ARAnchor ARAnchor { get; private set; }
     [HideInInspector] public ARCloudAnchor ARCloudAnchor;
 
@@ -14,6 +13,7 @@ public class Marker : MonoBehaviour
     [HideInInspector] public string Name = "Default";
     [HideInInspector] public string CloudAnchorID;
 
+    [SerializeField] private GameObject _buttonCanvas;
     private ARAnchorManager _arAnchorManager;
 
     private void Awake()
@@ -27,7 +27,7 @@ public class Marker : MonoBehaviour
     /// </summary>
     public void Click()
     {
-        ButtonCanvas.SetActive(true);
+        _buttonCanvas.SetActive(true);
     }
 
     /// <summary>
